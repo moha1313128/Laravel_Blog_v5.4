@@ -13734,7 +13734,17 @@ window.Vue = __webpack_require__(12);
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_buefy__["a" /* default */]);
 
+var app = new Vue({
+	el: '#app',
+	data: {}
+});
 // Vue.component('example', require('./components/Example.vue'));
+
+$(document).ready(function () {
+	$('button.dropdown').hover(function (e) {
+		$(this).toggleClass('is-open');
+	});
+});
 
 /***/ }),
 /* 74 */
