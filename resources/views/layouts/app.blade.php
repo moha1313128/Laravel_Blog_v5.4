@@ -15,78 +15,76 @@
 </head>
 <body>
     <div id="app">
-        <div class="container">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-            <a class="navbar-item" >
-              <img src="{{asset('images/devmarketer-logo.png')}}"  width="112" height="100">
-            </a>
+<nav class="navbar has-shadow" >
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item is-paddingless brand-item" href="{{route('home')}}">
+        <img src="{{asset('images/devmarketer-logo.png')}}" alt="DevMarketer logo">
+      </a>
 
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
+      @if (Request::segment(1) == "manage")
+        <a class="navbar-item is-hidden-desktop" id="admin-slideout-button">
+          <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+          </span>
+        </a>
+      @endif
 
-          <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-              <a class="navbar-item">
-                Learn
+      <button class="button navbar-burger">
+       <span></span>
+       <span></span>
+       <span></span>
+     </button>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item is-tab">Learn</a>
+        <a class="navbar-item is-tab">Discuss</a>
+        <a class="navbar-item is-tab">Share</a>
+      </div> <!-- end of .navbar-start -->
+
+
+      <div class="navbar-end nav-menu" style="overflow: visible">
+        @guest
+          <a href="{{route('login')}}" class="navbar-item is-tab">Login</a>
+          <a href="{{route('register')}}" class="navbar-item is-tab">Join the Community</a>
+        @else
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">Hey {{Auth::user()->name}}</a>
+            <div class="navbar-dropdown is-right" >
+              <a href="#" class="navbar-item">
+                <span class="icon">
+                  <i class="fa fa-fw fa-user-circle-o m-r-5"></i>
+                </span>Profile
               </a>
 
-              <a class="navbar-item">
-                Discuss
+              <a href="#" class="navbar-item">
+                <span class="icon">
+                  <i class="fa fa-fw fa-bell m-r-5"></i>
+                </span>Notifications
               </a>
-
-              <a class="navbar-item">
-                Share
+              <a href="{{route('manage.dashboard')}}" class="navbar-item">
+                <span class="icon">
+                  <i class="fa fa-fw fa-cog m-r-5"></i>
+                </span>Manage
               </a>
-
-              <div class="navbar-item has-dropdown is-hoverable" style="overflow: visible;">
-                <a class="navbar-link">
-                  Hey There
-                </a>
-
-                <div class="navbar-dropdown">
-                  <a class="navbar-item">
-                    Profile
-                  </a>
-                  <a class="navbar-item">
-                    Notifications
-                  </a>
-                  <a class="navbar-item">
-                    Settings
-                  </a>
-                  <hr class="navbar-divider">
-                  <a class="navbar-item">
-                    Logout
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <div class="buttons">
-                @if (!Auth::guest())
-                  <a class="button is-primary">
-                    <strong>Sign up</strong>
-                  </a>  
-                  <a class="button is-light">
-                    Log in
-                  </a>
-                @else
-                  <a class="button is-primary">
-                      <strong>Log out</strong>
-                  </a>
-                @endif  
-                </div>
-              </div>
+              <hr class="navbar-divider">
+              <a href="{{route('logout')}}" class="navbar-item" onclick="event.preventDefault();
+                         document.getElementById('logout-form').submit();">
+                <span class="icon">
+                  <i class="fa fa-fw fa-sign-out m-r-5"></i>
+                </span>
+                Logout
+              </a>
+              @include('_includes.forms.logout')
             </div>
           </div>
-        </nav>
-        </div>
+        @endguest
+      </div>
+    </div>
+
+  </div>
+</nav>
         @yield('content')
     </div>
     <!-- Scripts -->
