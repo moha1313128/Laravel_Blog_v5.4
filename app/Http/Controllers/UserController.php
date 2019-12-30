@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 use DB;
 use Session;
 use Hash;
@@ -99,10 +100,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        // $roles = Role::all();
+        $roles = Role::all();
         $user = User::where('id', $id)->with('roles')->first();
-        // return view("manage.users.edit")->withUser($user)->withRoles($roles);
-        return view("manage.users.edit")->withUser($user);
+        return view("manage.users.edit")->withUser($user)->withRoles($roles);
+        // return view("manage.users.edit")->withUser($user);
     }
 
     /**
